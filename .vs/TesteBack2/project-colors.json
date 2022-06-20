@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "9b5f3e8d-ee01-4e72-8a01-610ed751af37": {
+      "ProjectGuid": "9b5f3e8d-ee01-4e72-8a01-610ed751af37",
+      "DisplayName": "ServicoRotina",
+      "ColorIndex": 0
+    },
+    "da4abf7c-d3ac-4284-822a-08e464873126": {
+      "ProjectGuid": "da4abf7c-d3ac-4284-822a-08e464873126",
+      "DisplayName": "Worker",
+      "ColorIndex": 1
+    },
+    "ef95889c-1af6-443d-bf0d-02bf525953dd": {
+      "ProjectGuid": "ef95889c-1af6-443d-bf0d-02bf525953dd",
+      "DisplayName": "WorkerServiceTesteBack2",
+      "ColorIndex": 2
+    },
+    "c1dfad49-d016-4c7a-894d-30b5b9c9943d": {
+      "ProjectGuid": "c1dfad49-d016-4c7a-894d-30b5b9c9943d",
+      "DisplayName": "RotinaTimer",
+      "ColorIndex": 3
+    },
+    "091b47df-dbae-4a0a-bb8f-5ff08c070772": {
+      "ProjectGuid": "091b47df-dbae-4a0a-bb8f-5ff08c070772",
+      "DisplayName": "TimerRotina",
+      "ColorIndex": 4
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Arquivos Diversos",
+      "ColorIndex": -1
+    },
+    "5b200188-c0de-4451-a304-2cc0f182e186": {
+      "ProjectGuid": "5b200188-c0de-4451-a304-2cc0f182e186",
+      "DisplayName": "WebApplication1",
+      "ColorIndex": 5
+    }
+  },
+  "NextColorIndex": 6
+}

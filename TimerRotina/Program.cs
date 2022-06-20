@@ -1,6 +1,4 @@
-﻿using RotinaTimer.Model;
-using RotinaTimer.Service;
-using RotinaTimer.Service.Interface;
+﻿using RotinaTimer.Service;
 using System;
 
 namespace TimerRotina

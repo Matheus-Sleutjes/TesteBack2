@@ -4,7 +4,6 @@ namespace TimerRotina.Model
 {
     public class PesquisaModel
     {
-        public Guid Id { get; set; }
         public string Moeda { get; set; }
         public DateTime DataInicio { get; set; }
         public DateTime DataFim { get; set; }

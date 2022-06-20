@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projetos\\TesteBack2\\TimerRotina\\TimerRotina.csproj": {}
+    "C:\\TesteBack2\\TimerRotina\\TimerRotina.csproj": {}
   },
   "projects": {
-    "C:\\Projetos\\TesteBack2\\TimerRotina\\TimerRotina.csproj": {
+    "C:\\TesteBack2\\TimerRotina\\TimerRotina.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projetos\\TesteBack2\\TimerRotina\\TimerRotina.csproj",
+        "projectUniqueName": "C:\\TesteBack2\\TimerRotina\\TimerRotina.csproj",
         "projectName": "TimerRotina",
-        "projectPath": "C:\\Projetos\\TesteBack2\\TimerRotina\\TimerRotina.csproj",
-        "packagesPath": "C:\\Users\\Matheus\\.nuget\\packages\\",
-        "outputPath": "C:\\Projetos\\TesteBack2\\TimerRotina\\obj\\",
+        "projectPath": "C:\\TesteBack2\\TimerRotina\\TimerRotina.csproj",
+        "packagesPath": "C:\\Users\\41404141898\\.nuget\\packages\\",
+        "outputPath": "C:\\TesteBack2\\TimerRotina\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Matheus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\41404141898\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -64,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
         }
       }
     }

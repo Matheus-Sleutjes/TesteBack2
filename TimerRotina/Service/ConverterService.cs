@@ -1,40 +1,76 @@
 ﻿using RestSharp;
 using RotinaTimer.Model;
-using RotinaTimer.Model.View;
 using RotinaTimer.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using TesteBack.Enum;
 using TimerRotina.Model;
 
 namespace RotinaTimer.Service
 {
-    public class ConverterService : IConverterService
+    public class ConverterService 
     {
-        private readonly string pathCotacao = "C:\\Users\\Public\\DadosCotacao.csv";
-        private readonly string pathMoeda = "C:\\Users\\Public\\DadosMoeda.csv";
-        public ConverterService()
-        {
+        public ConverterService() { }
 
-        }
-
-        public async void Start()
+        public void Start()
         {
             InitializeTimer();
-
-            //var listaCotacao = GetListCotacao(this.pathCotacao);
-            //var listaMoeda = GetListMoeda(this.pathMoeda);
-
-             //var retorno = await GetApi();
-
         }
 
-        private static List<DadosCotacaoModel> GetListCotacao(string path)
+        private static void InitializeTimer()
+        {
+            var callback = new TimerCallback(Tick);
+            Console.WriteLine("O servico foi iniciado!");
+            Console.WriteLine("Digite STOP para sair");
+
+            Timer stateTimer = new Timer(callback, null, 0, 120000);
+
+            var console = Console.ReadLine().ToUpper();
+
+            if (console == "STOP")
+            {
+                stateTimer.Dispose();
+                Console.WriteLine("O servico foi parado!");
+            }
+        }
+        private async static void Tick(Object stateInfo)
+        {
+            Console.WriteLine("Tick: {0}", DateTime.Now.ToString("HH:mm:ss"));
+            var response = await GetApi();
+
+            if (response.Moeda != null)
+            {
+                var data = DateTime.Now.ToLocalTime();
+                Console.WriteLine($"Gerando Resultado_{data.ToString("yyyyMMdd")}_{data.ToString("HHmmss")}");
+
+                var lista = GetListCsv(response);
+
+                CreateCsv(lista, data);
+            }
+            else
+            {
+                Console.WriteLine("NADA FOI ENCONTRADO");
+            }
+        }
+
+        private static async Task<PesquisaModel> GetApi()
+        {
+            var client = new RestClient("https://localhost:44389/");
+
+            var resource = "Moeda/GetItemFila";
+            var cancelation = new CancellationToken(default);
+
+            return await client.GetJsonAsync<PesquisaModel>(resource, cancelation);
+        }
+
+        private static List<DadosCotacaoModel> GetListCsv(PesquisaModel pesquisa)
         {
             var count = 0;
-            var reader = new StreamReader(File.OpenRead(@path));
+            var reader = new StreamReader(File.OpenRead(@"C:\\Users\\Public\\DadosCotacao.csv"));
             var list = new List<DadosCotacaoModel>();
             
             while (!reader.EndOfStream)
@@ -48,68 +84,28 @@ namespace RotinaTimer.Service
                     obj.ValorCotacao = Convert.ToDouble(values[0]);
                     obj.CodigoCotacao = Convert.ToInt32(values[1]);
                     obj.DataCotacao = Convert.ToDateTime(values[2]);
-
-                    list.Add(obj);
+                    obj.Moeda = (MoedaEnum)Convert.ToInt32(values[1]);
+                    
+                    if (obj.Moeda.ToString() == pesquisa.Moeda && obj.DataCotacao > pesquisa.DataInicio && pesquisa.DataFim > obj.DataCotacao)
+                        list.Add(obj);
                 }
                 count++;
             }
             return list;
         }
 
-        private static List<DadosMoedaModelView> GetListMoeda(string path)
+        private static void CreateCsv(List<DadosCotacaoModel> lista, DateTime data)
         {
-            var reader = new StreamReader(File.OpenRead(@path));
-            var list = new List<DadosMoedaModelView>();
+            var path = $"C:\\Users\\Public\\Resultado_{data.ToString("yyyyMMdd")}_{data.ToString("HHmmss")}.csv";
 
-            while (!reader.EndOfStream)
+            var sw = new StreamWriter(@path, true, Encoding.UTF8);
+
+            sw.WriteLine("ID_MOEDA;DATA_REF;VL_COTACAO");
+            foreach (var item in lista)
             {
-                var line = reader.ReadLine();
-                var values = line.Split(';');
-
-                var obj = new DadosMoedaModelView();
-                obj.MoedaId = values[0];
-                obj.DataRef = values[1];
-
-                list.Add(obj);
+                sw.WriteLine($"{item.Moeda};{item.DataCotacao.ToString("yyyy-MM-dd")};{item.ValorCotacao}");
             }
-            list.RemoveAt(0);
-            return list;
-        }
-
-        private static async Task<PesquisaModel> GetApi()
-        {
-            var client = new RestClient("https://localhost:44389/");
-            
-            var resource = "Moeda/GetItemFila";
-            var cancelation = new CancellationToken(default);
-            var response = await client.GetJsonAsync<PesquisaModel>(resource, cancelation);
-
-            return response;
-        }
-
-        private static void Tick(Object stateInfo)
-        {
-            Console.WriteLine("Tick: {0}", DateTime.Now.ToString("h:mm:ss"));
-            //getapi
-            //fazer uma lista filtrando apartir do retorno api
-            //pegar cotação 
-        }
-
-        private static void InitializeTimer()
-        {
-            var sair = false;
-            TimerCallback callback = new TimerCallback(Tick);
-            Console.WriteLine("Timer Iniciado");
-            Console.WriteLine("Digite STOP para sair");
-            Timer stateTimer = new Timer(callback, null, 0, 10000);
-            Console.WriteLine("rodando");
-            var console = Console.ReadLine().ToUpper();
-
-            if (console == "STOP")
-            {
-                stateTimer.Dispose();
-                Console.WriteLine("parou");
-            }
+            sw.Close();
         }
     }
 }

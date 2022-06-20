@@ -1,6 +1,5 @@
 ﻿using RestSharp;
 using RotinaTimer.Model;
-using RotinaTimer.Service.Interface;
 using System;
 using System.Collections.Generic;
 using System.IO;

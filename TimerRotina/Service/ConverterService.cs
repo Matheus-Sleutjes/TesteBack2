@@ -81,7 +81,6 @@ namespace RotinaTimer.Service
                 {
                     var obj = new DadosCotacaoModel();
                     obj.ValorCotacao = Convert.ToDouble(values[0]);
-                    obj.CodigoCotacao = Convert.ToInt32(values[1]);
                     obj.DataCotacao = Convert.ToDateTime(values[2]);
                     obj.Moeda = (MoedaEnum)Convert.ToInt32(values[1]);
                     
